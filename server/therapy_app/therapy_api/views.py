@@ -13,6 +13,47 @@ from .serializers import (
     GoalSerializer, TodoItemSerializer, RegistrationSerializer, ClientJoinSerializer
 )
 
+from rest_framework.authtoken.models import Token
+from django.contrib.auth import authenticate
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+
+@csrf_exempt
+def login_view(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            username = data.get("username")
+            password = data.get("password")
+
+            user = authenticate(username=username, password=password)
+
+            if user is not None:
+                token, _ = Token.objects.get_or_create(user=user)
+
+                # Ensure `user_type` is fetched correctly
+                user_type = "client"
+                if hasattr(user, "profile") and user.profile.is_therapist:
+                    user_type = "therapist"
+
+                return JsonResponse({
+                    "token": token.key,
+                    "user": {
+                        "id": user.id,
+                        "username": user.username,
+                        "email": user.email,
+                        "user_type": user_type
+                    }
+                })
+            else:
+                return JsonResponse({"error": "Invalid credentials"}, status=401)
+
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Invalid JSON"}, status=400)
+
+    return JsonResponse({"error": "Invalid request method"}, status=400)
+
 class IsTherapist(permissions.BasePermission):
     def has_permission(self, request, view):
         return request.user.is_authenticated and hasattr(request.user, 'profile') and request.user.profile.is_therapist
