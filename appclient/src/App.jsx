@@ -28,7 +28,7 @@ function App() {
               <Route 
                 path="/therapist" 
                 element={
-                  <PrivateRoute requiredRole="therapist">
+                  <PrivateRoute>
                     <TherapistDashboard />
                   </PrivateRoute>
                 } 

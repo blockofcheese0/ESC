@@ -18,6 +18,7 @@ const Login = () => {
       setError(null);
       
       const user = await login(username, password);
+      console.log(user);
       
       if (user.isTherapist) {
         navigate('/therapist');

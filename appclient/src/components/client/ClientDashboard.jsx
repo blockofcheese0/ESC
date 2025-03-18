@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Card, Button, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { authService } from '../../services/auth.service.jsx';
-import { goalService } from '../../services/goal.service.jsx';
-import { todoService } from '../../services/todo.service.jsx';
+import { authService } from '../../services/auth.service';
+import { goalService } from '../../services/goal.service';
+import { todoService } from '../../services/todo.service';
 
 const ClientDashboard = () => {
   const [loading, setLoading] = useState(true);

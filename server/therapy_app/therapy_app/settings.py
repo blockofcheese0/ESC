@@ -33,7 +33,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'therapy_project.urls'
+ROOT_URLCONF = 'therapy_app.urls'
 
 TEMPLATES = [
     {
@@ -51,7 +51,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'therapy_project.wsgi.application'
+#WSGI_APPLICATION = 'therapy_app.wsgi.application'
 
 DATABASES = {
     'default': {
@@ -91,17 +91,5 @@ SIMPLE_JWT = {
 
 # CORS Settings
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-]
-
-# therapy_project/urls.py
-from django.contrib import admin
-from django.urls import path, include
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', include('therapy_api.urls')),
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    "http://localhost:5173",  # React frontend URL
 ]
