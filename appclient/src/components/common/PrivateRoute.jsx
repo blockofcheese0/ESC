@@ -3,8 +3,8 @@ import { Navigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
 const PrivateRoute = ({ children, requiredRole }) => {
-  const { currentUser } = useAuth();
-
+  var { currentUser } = useAuth();
+  
   console.log("PrivateRoute - Current User:", currentUser); // Debugging user
 
   if (!currentUser) {
@@ -12,7 +12,8 @@ const PrivateRoute = ({ children, requiredRole }) => {
   }
 
   if (requiredRole && currentUser?.user_type !== requiredRole) {
-    return <Navigate to={`/${currentUser?.user_type?.toLowerCase() || "default"}`} />;
+
+    return <Navigate to={`/${currentUser?.user_type?.toLowerCase() || "therapist"}`} />;
   }
 
   return children;

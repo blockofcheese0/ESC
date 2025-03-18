@@ -5,7 +5,7 @@ from .models import UserProfile, TherapistProfile, ClientProfile, TherapistClien
 @admin.register(UserProfile)
 class UserProfileAdmin(admin.ModelAdmin):
     list_display = ('user', 'is_therapist', 'created_at')
-
+ 
 @admin.register(TherapistProfile)
 class TherapistProfileAdmin(admin.ModelAdmin):
     list_display = ('user_profile', 'invite_code', 'specialty', 'bio')
